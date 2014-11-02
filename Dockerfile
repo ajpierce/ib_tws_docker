@@ -17,6 +17,7 @@ RUN apt-get install -y \
     wget \
     unzip \
     openjdk-7-jdk \
+    gsettings-desktop-schemas \
     xvfb
 
 # Create the directory for IB-related utilities
@@ -31,5 +32,15 @@ RUN cd /opt/ib/ ; \
     wget https://download2.interactivebrokers.com/download/unixmacosx_latest.jar ; \
     jar xf unixmacosx_latest.jar
 
-COPY jts.ini /opt/ib/
+COPY jts.ini /opt/ib/IBJts/
 COPY tws.xml /opt/ib/
+COPY IBController.ini /opt/ib/IBController/
+COPY start_tws.sh /opt/ib/
+COPY xvfb /etc/init.d/
+
+RUN chmod +x /etc/init.d/xvfb
+RUN update-rc.d xvfb defaults
+
+ENV DISPLAY :0
+CMD ["service", "xvfb" "start"]
+CMD ["/bin/bash", "/opt/ib/start_tws.sh"]
