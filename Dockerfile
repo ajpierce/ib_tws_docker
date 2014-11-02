@@ -32,15 +32,11 @@ RUN cd /opt/ib/ ; \
     wget https://download2.interactivebrokers.com/download/unixmacosx_latest.jar ; \
     jar xf unixmacosx_latest.jar
 
+# Install config files IB needs to run
 COPY jts.ini /opt/ib/IBJts/
 COPY tws.xml /opt/ib/
 COPY IBController.ini /opt/ib/IBController/
 COPY start_tws.sh /opt/ib/
-COPY xvfb /etc/init.d/
 
-RUN chmod +x /etc/init.d/xvfb
-RUN update-rc.d xvfb defaults
-
-ENV DISPLAY :0
-CMD ["service", "xvfb" "start"]
+# Set up Virtual Framebuffer and attempt to start TWS
 CMD ["/bin/bash", "/opt/ib/start_tws.sh"]

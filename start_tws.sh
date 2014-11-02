@@ -28,8 +28,13 @@ TWSCP=jts.jar:total.2013.jar
 #   UNIX/MacosX download instructions for TWS on the IB website. (Note that
 #   jclient.LoginFrame is NOT part of the Java options, nor is anything 
 #   that comes after it, so don't include that here):
-JAVAOPTS=-Djava.awt.headless=true -Xmx512M -XX:MaxPermSize=128M 
+JAVAOPTS="-Xmx512M -XX:MaxPermSize=128M"
 
+# -- SET UP VIRTUAL FRAMEBUFFER
+Xvfb :1 -screen 0 1024x800x8 &
+export DISPLAY=":1"
+
+# -- LAUNCH TWS
 pushd $TWSDIR
 java -cp  $TWSCP:$IBCDIR/IBController.jar $JAVAOPTS ibcontroller.IBController $IBCINI
 popd
