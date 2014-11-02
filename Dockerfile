@@ -20,8 +20,8 @@ RUN apt-get install -y \
     gsettings-desktop-schemas \
     xvfb
 
-# Create the directory for IB-related utilities
-RUN mkdir -p /opt/ib/
+# Create the directories for IB-related utilities
+RUN mkdir -p /opt/ib/darykq
 
 # Download IB Connect and TWS
 RUN cd /opt/ib/ ; \
@@ -34,9 +34,11 @@ RUN cd /opt/ib/ ; \
 
 # Install config files IB needs to run
 COPY jts.ini /opt/ib/IBJts/
-COPY tws.xml /opt/ib/
+COPY tws.xml /opt/ib/darykq/
 COPY IBController.ini /opt/ib/IBController/
 COPY start_tws.sh /opt/ib/
+COPY tws_credentials.txt /opt/ib/IBController/
+RUN cat /opt/ib/IBController/tws_credentials.txt >> /opt/ib/IBController/IBController.ini
 
 # Set up Virtual Framebuffer and attempt to start TWS
 CMD ["/bin/bash", "/opt/ib/start_tws.sh"]
