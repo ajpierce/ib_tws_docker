@@ -1,0 +1,35 @@
+############################################################
+# Dockerfile to build Alchemy Enginer container images
+# Based on Ubuntu
+############################################################
+
+# Set the base image to Ubuntu
+FROM ubuntu
+
+# File Author / Maintainer
+MAINTAINER Andrew Pierce
+
+# Update the repository sources list
+RUN apt-get update
+
+# Install libs
+RUN apt-get install -y \
+    wget \
+    unzip \
+    openjdk-7-jdk \
+    xvfb
+
+# Create the directory for IB-related utilities
+RUN mkdir -p /opt/ib/
+
+# Download IB Connect and TWS
+RUN cd /opt/ib/ ; \
+    wget https://github.com/ib-controller/ib-controller/releases/download/2.12.1/IBController-2.12.1.zip ; \
+    unzip IBController-2.12.1.zip
+
+RUN cd /opt/ib/ ; \
+    wget https://download2.interactivebrokers.com/download/unixmacosx_latest.jar ; \
+    jar xf unixmacosx_latest.jar
+
+COPY jts.ini /opt/ib/
+COPY tws.xml /opt/ib/
