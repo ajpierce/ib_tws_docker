@@ -32,7 +32,7 @@ docker build -t IMAGE .
 
 Start a docker container with name NAME based on image IMAGE:
 ```
-docker run --name NAME -i -t IMAGE
+docker run --expose 4001 --name NAME -i -t IMAGE
 ```
 
 Remove all containers that are not currently running:
