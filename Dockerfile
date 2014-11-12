@@ -1,7 +1,7 @@
-############################################################
-# Dockerfile to build Alchemy Enginer container images
+#############################################################
+# Dockerfile to build Interactive Broker TWS container images
 # Based on Ubuntu
-############################################################
+#############################################################
 
 # Set the base image to Ubuntu
 FROM ubuntu
@@ -41,4 +41,5 @@ COPY tws_credentials.txt /opt/ib/IBController/
 RUN cat /opt/ib/IBController/tws_credentials.txt >> /opt/ib/IBController/IBController.ini
 
 # Set up Virtual Framebuffer and attempt to start TWS
+EXPOSE 4001
 CMD ["/bin/bash", "/opt/ib/start_tws.sh"]
