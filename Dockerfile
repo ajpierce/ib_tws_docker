@@ -9,11 +9,8 @@ FROM ubuntu
 # File Author / Maintainer
 MAINTAINER Andrew Pierce
 
-# Update the repository sources list
-RUN apt-get update
-
 # Install libs
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     openjdk-7-jdk \
