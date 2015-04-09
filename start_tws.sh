@@ -30,10 +30,6 @@ TWSCP=jts.jar:total.2013.jar
 #   that comes after it, so don't include that here):
 JAVAOPTS="-Xmx800M -XX:MaxPermSize=256M"
 
-# -- SET UP VIRTUAL FRAMEBUFFER
-Xvfb :1 -screen 0 1024x800x8 &
-export DISPLAY=":1"
-
 # -- LAUNCH TWS
 pushd $TWSDIR
 java -cp  $TWSCP:$IBCDIR/IBController.jar $JAVAOPTS ibcontroller.IBController $IBCINI
