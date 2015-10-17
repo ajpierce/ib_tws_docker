@@ -9,11 +9,8 @@ FROM ubuntu
 # File Author / Maintainer
 MAINTAINER Andrew Pierce
 
-# Update the repository sources list
-RUN apt-get update
-
 # Install libs
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     openjdk-7-jdk \
@@ -33,7 +30,6 @@ RUN cd /opt/ib/ ; \
     jar xf unixmacosx_latest.jar
 
 # Install config files IB needs to run
-COPY xvfb /etc/init.d/
 COPY jts.ini /opt/ib/IBJts/
 COPY tws.xml /opt/ib/darykq/
 COPY IBController.ini /opt/ib/IBController/
@@ -41,7 +37,13 @@ COPY start_tws.sh /opt/ib/
 COPY tws_credentials.txt /opt/ib/IBController/
 RUN cat /opt/ib/IBController/tws_credentials.txt >> /opt/ib/IBController/IBController.ini
 
-# Set up Virtual Framebuffer and attempt to start TWS
-ENV DISPLAY :0
+# Set up Virtual Framebuffer
+ADD xvfb_init /etc/init.d/xvfb
+RUN chmod a+x /etc/init.d/xvfb
+ADD xvfb-daemon-run /usr/bin/xvfb-daemon-run
+RUN chmod a+x /usr/bin/xvfb-daemon-run
+ENV DISPLAY :99
+
+# Start TWS
 EXPOSE 4001
-CMD ["/bin/bash", "/opt/ib/start_tws.sh"]
+CMD ["/bin/bash", "/usr/bin/xvfb-daemon-run", "/bin/bash", "/opt/ib/start_tws.sh"]
