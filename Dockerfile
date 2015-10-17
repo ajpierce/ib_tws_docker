@@ -9,11 +9,8 @@ FROM ubuntu
 # File Author / Maintainer
 MAINTAINER Andrew Pierce
 
-# Update the repository sources list
-RUN apt-get update
-
 # Install libs
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     openjdk-7-jdk \
@@ -41,7 +38,7 @@ COPY start_tws.sh /opt/ib/
 COPY tws_credentials.txt /opt/ib/IBController/
 RUN cat /opt/ib/IBController/tws_credentials.txt >> /opt/ib/IBController/IBController.ini
 
-# Set up Virtual Framebuffer and attempt to start TWS
+# Set up Virtual Framebuffer and start TWS
 ENV DISPLAY :0
 EXPOSE 4001
-CMD ["/bin/bash", "/opt/ib/start_tws.sh"]
+CMD ["/bin/bash", "/usr/bin/xvfb-daemon-run", "/bin/bash", "/opt/ib/start_tws.sh"]
