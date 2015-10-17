@@ -32,12 +32,7 @@ docker build -t IMAGE .
 
 Start a docker container with name NAME based on image IMAGE:
 ```
-docker run --p 4001:4001 --name NAME -ti IMAGE
-```
-
-Daemonize it and keep it alive after it shuts down:
-```
-docker run -d -p 4001:4001 --restart=always --publish-all --name NAME -t IMAGE
+docker run --p 4001:4001 --name NAME -i -t IMAGE
 ```
 
 Remove all containers that are not currently running:
