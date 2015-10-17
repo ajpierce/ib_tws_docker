@@ -8,9 +8,9 @@
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
 
-XVFB=usr/bin/Xvfb
-XVFBARGS=":0 -screen 0 1440x900x24 -ac +extension GLX +render -noreset"
-PIDFILE=/var/run/xvfb.pid
+XVFB=/usr/bin/Xvfb
+XVFBARGS="$DISPLAY -screen 0 1440x900x24 -ac +extension GLX +render -noreset"
+PIDFILE=/var/xvfb_${DISPLAY:1}.pid
 case "$1" in
   start)
     echo -n "Starting virtual X frame buffer: Xvfb"

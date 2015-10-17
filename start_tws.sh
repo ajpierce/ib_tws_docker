@@ -31,8 +31,8 @@ TWSCP=jts.jar:total.2013.jar
 JAVAOPTS="-Xmx768M -XX:MaxPermSize=256M"
 
 # -- SET UP VIRTUAL FRAMEBUFFER
-Xvfb :1 -screen 0 1024x800x8 &
-export DISPLAY=":1"
+/etc/init.d/xvfb start
+sleep 1
 
 # -- LAUNCH TWS
 pushd $TWSDIR
