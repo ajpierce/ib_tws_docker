@@ -30,6 +30,9 @@ TWSCP=jts.jar:total.2013.jar
 #   that comes after it, so don't include that here):
 JAVAOPTS="-Xmx800M -XX:MaxPermSize=256M"
 
+/etc/init.d/xvfb restart
+sleep 1
+
 # -- LAUNCH TWS
 pushd $TWSDIR
 java -cp  $TWSCP:$IBCDIR/IBController.jar $JAVAOPTS ibcontroller.IBController $IBCINI
