@@ -30,11 +30,11 @@ RUN cd /opt/ib/ ; \
     jar xf unixmacosx_latest.jar
 
 # Install config files IB needs to run
-COPY jts.ini /opt/ib/IBJts/
-COPY tws.xml /opt/ib/darykq/
-COPY IBController.ini /opt/ib/IBController/
-COPY start_tws.sh /opt/ib/
-COPY tws_credentials.txt /opt/ib/IBController/
+ADD jts.ini /opt/ib/IBJts/
+ADD tws.xml /opt/ib/darykq/
+ADD IBController.ini /opt/ib/IBController/
+ADD start_tws.sh /opt/ib/
+ADD tws_credentials.txt /opt/ib/IBController/
 RUN cat /opt/ib/IBController/tws_credentials.txt >> /opt/ib/IBController/IBController.ini
 
 # Set up Virtual Framebuffer
