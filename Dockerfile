@@ -40,7 +40,7 @@ RUN cat /opt/ib/IBController/tws_credentials.txt >> /opt/ib/IBController/IBContr
 # Set up Virtual Framebuffer
 ADD xvfb_init /etc/init.d/xvfb
 RUN chmod a+x /etc/init.d/xvfb
-ENV DISPLAY :99
+ENV DISPLAY :0.0
 
 # Start TWS
 EXPOSE 4001

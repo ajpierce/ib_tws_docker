@@ -20,17 +20,19 @@ TWSDIR=/opt/ib/IBJts
 #   You can find the required information in the UNIX/MacOsX download instructions
 #   for TWS on the IB website, which includes a sample command to start TWS.
 #
-#   You must include everything after "-cp " up to the 
+#   You must include everything after "-cp " up to the
 #   first subsequent space character:
 TWSCP=jts.jar:total.2013.jar
 
-#   Other Java VM options for TWS. You can find this information in the 
+#   Other Java VM options for TWS. You can find this information in the
 #   UNIX/MacosX download instructions for TWS on the IB website. (Note that
-#   jclient.LoginFrame is NOT part of the Java options, nor is anything 
+#   jclient.LoginFrame is NOT part of the Java options, nor is anything
 #   that comes after it, so don't include that here):
-JAVAOPTS="-Xmx800M -XX:MaxPermSize=256M"
+JAVAOPTS="-Xmx800M -XX:MaxPermSize=256M -Dsun.java2d.noddraw=true -Dswing.boldMetal=false"
 
-/etc/init.d/xvfb restart
+/etc/init.d/xvfb stop
+sleep 1
+/etc/init.d/xvfb start
 sleep 1
 
 # -- LAUNCH TWS
