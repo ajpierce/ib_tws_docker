@@ -17,17 +17,15 @@ RUN apt-get update && apt-get install -y \
     gsettings-desktop-schemas \
     xvfb
 
-# Create the directories for IB-related utilities
-RUN mkdir -p /opt/ib/darykq
-
 # Download IB Connect and TWS
-RUN cd /opt/ib/ ; \
-    wget https://github.com/ib-controller/ib-controller/releases/download/2.12.1/IBController-2.12.1.zip ; \
-    unzip IBController-2.12.1.zip
-
-RUN cd /opt/ib/ ; \
-    wget https://download2.interactivebrokers.com/download/unixmacosx_latest.jar ; \
+RUN mkdir -p /opt/ib/darykq && \
+    cd /opt/ib/ && \
+    wget https://github.com/ib-controller/ib-controller/releases/download/2.12.1/IBController-2.12.1.zip && \
+    unzip IBController-2.12.1.zip && \
+    wget https://download2.interactivebrokers.com/download/unixmacosx_latest.jar && \
     jar xf unixmacosx_latest.jar
+    #wget https://download2.interactivebrokers.com/download/unixmacosx.jar && \
+    #jar xf unixmacosx.jar
 
 # Install config files IB needs to run
 ADD jts.ini /opt/ib/IBJts/
