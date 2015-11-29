@@ -1,0 +1,10 @@
+tws:
+    build: .
+    environment:
+        TWSUSERID: fdemo
+        TWSPASSWORD: demouser
+        VNC_PASSWORD: doughnuts
+    ports:
+        - "4001:4001"   # API
+        - "5900:5900"   # VNC
+    restart: always
