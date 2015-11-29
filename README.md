@@ -1,52 +1,20 @@
 # IB TWS Docker
-Build Docker images of (headless) Interactive Brokers TWS instances.
+Build Docker images of Interactive Brokers TWS instances, accessible through VNC.
 The API is exposed on port 4001. Ideal for algorithmic trading on IB!
 
-This project assumes you've installed [boot2docker](http://boot2docker.io/)
-and/or have experience working with [Docker](http://docker.io).
-
 ## Usage
-1. Set your IB credentials in tws_credentials.txt.
+1. Set your username and password in `docker-compose.yml`
+2. `docker-compose build`
+3. `docker-compose up`
 
-2. Build the image with the `docker build` command (see below for examples).
-The build process will automatically append your TWS credentials to the
-IBController.ini file.
-
-3. Run a docker container with the image you just created. When you run
-the container, IBController will automatically launch TWS, directing GUI output
-to a virtual framebuffer (headless!) and connecting to IB with your credentials.
-
-If you attach to this docker container, you will see (after approximately 20
-seconds) that the API is available on port 4001 for you to submit commands.
-The message giving you the green light looks like so:
+## Viewing via VNC
+The VNC server is accessible through port 5900. If you're using docker-machine
+(if you're on Windows or OSX), the IP address of the server will be the IP
+address of your docker VM. You can discover this IP address with the command:
 
 ```
-22:05:48:797 JTS-SocketListener-60: API server sarting to listening on port 4001
+docker-machine ip default
 ```
 
-## Docker Protips
-Build a docker image with name IMAGE from the Dockerfile in the current directory:
-```
-docker build -t IMAGE .
-```
-
-Start a docker container with name NAME based on image IMAGE:
-```
-docker run --p 4001:4001 --name NAME -ti IMAGE
-```
-
-Daemonize it and keep it alive after it shuts down:
-```
-docker run -d -p 4001:4001 --restart=always --publish-all --name NAME -t IMAGE
-```
-
-Remove all containers that are not currently running:
-```
-docker rm $(docker ps -a -q)
-```
-
-## Advanced
-If you've been using TWS in the past and you have your own configuration,
-replace `tws.xml` in this project with the `tws.xml` file on your trading
-machine prior to building the image. This way, your settings (API port, etc.)
-should persist in the Dockerized, headless TWS instance.
+You'll need to use an application such as [Chicken of the VNC](http://sourceforge.net/projects/cotvnc/)
+for connecting to the VNC server.
