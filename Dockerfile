@@ -35,7 +35,7 @@ ENV DISPLAY :0.0
 # Set up IBConnect
 RUN mkdir -p /opt/IBJts/jars/dhmyhmeut/
 ADD jts.ini /opt/IBJts/jars/
-ADD tws.xml.new /opt/IBJts/jars/dhmyhmeut/tws.xml
+ADD tws.xml /opt/IBJts/jars/dhmyhmeut/
 ADD IBController.ini /opt/IBController/
 ADD IBControllerStart.sh /opt/IBController/
 RUN chmod +x /opt/IBController/IBControllerStart.sh
